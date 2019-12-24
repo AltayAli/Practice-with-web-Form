@@ -1,0 +1,60 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="Portfolio.Site1" %>
+<%@ Import Namespace="System.IO" %>
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <link href="Content/bootstrap.min.css" rel="stylesheet" />
+        <%: System.Web.Optimization.Styles.Render("~/Content/Mystyles") %>
+    <link rel="stylesheet" href="//cdn.materialdesignicons.com/4.7.95/css/materialdesignicons.min.css">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+     <nav class="overlay">
+        <i class="mdi mdi-menu menu-icon"></i>
+        <div class="container-fluid menu-part  h-100 m-0 p-0">
+            <div class="row h-100 p-0 m-0 overflow-hidden">
+                <div class="col-md-6 col-12 menu-left-part  ">
+                    <div class="main-img">
+                        <%
+                            using(Portfolio.Model.DatabaseContext db = new Portfolio.Model.DatabaseContext())
+                            {
+                                var item = db.AboutMes.FirstOrDefault();
+                                if(item!=null)
+                                Response.Write($"<img src=\"{Path.Combine("Image",item.Image)}\" alt=\"\">");
+                            }
+                            %>
+                        <div class="img-overlay"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 menu-right-part ">
+                    <ul class="navigation">
+                        <li><a href="HomePage.aspx">Home</a></li>
+                        <li><a href="AboutMePage.aspx">About Me</a></li>
+                        <li><a href="MyWorks.aspx">My Works</a></li>
+                        <li><a href="ReachWithMe.aspx">How To Reach Me</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </nav>
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+      <footer class="container-fluid">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center align-items-center p-5">
+                <p>Copyright © 2019</p>
+            </div>
+        </div>
+    </footer>
+    <script src="Scripts/bootstrap.bundle.js"></script>
+    <script src="Scripts/popper.min.js"></script>
+    <script src="Scripts/jquery-3.4.1.min.js"></script>
+    <script src="Scripts/menu-button.js"></script>
+</body>
+</html>
